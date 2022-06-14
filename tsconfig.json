@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "111",
+    "module": "commonjs",
     "target": "es6",
     "sourceMap": true,
       "types": ["node"]

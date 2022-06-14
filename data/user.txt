@@ -1,2 +1,4 @@
 khai,123,true
 ngu,123,true
+khai2,Khai2001*,false
+khai3,Khai2001*,false

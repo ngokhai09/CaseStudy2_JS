@@ -18,51 +18,51 @@ export class Room {
         this._roomName = roomName;
     }
 
-    get id(): number {
+    public get id(): number {
         return this._id;
     }
 
-    set id(value: number) {
+    public set id(value: number) {
         this._id = value;
     }
 
-    get numberBedrooms(): number {
+    public get numberBedrooms(): number {
         return this._numberBedrooms;
     }
 
-    set numberBedrooms(value: number) {
+    public set numberBedrooms(value: number) {
         this._numberBedrooms = value;
     }
 
-    get numberToilets(): number {
+    public get numberToilets(): number {
         return this._numberToilets;
     }
 
-    set numberToilets(value: number) {
+    public set numberToilets(value: number) {
         this._numberToilets = value;
     }
 
-    get roomStatus(): number {
+    public get roomStatus(): number {
         return this._roomStatus;
     }
 
-    set roomStatus(value: number) {
+    public set roomStatus(value: number) {
         this._roomStatus = value;
     }
 
-    get price(): number {
+    public get price(): number {
         return this._price;
     }
 
-    set price(value: number) {
+    public set price(value: number) {
         this._price = value;
     }
 
-    get roomName(): string {
+    public get roomName(): string {
         return this._roomName;
     }
 
-    set roomName(value: string) {
+    public set roomName(value: string) {
         this._roomName = value;
     }
 

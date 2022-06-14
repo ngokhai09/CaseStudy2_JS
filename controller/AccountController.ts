@@ -1,57 +1,24 @@
-import {IOFile} from "./IOFile";
+
 import {User} from "../model/User";
-import {AdminController} from "./AdminController";
-import {UserController} from "./UserController";
+import {IOFile} from "./IOFile";
+import {Main} from "../main";
+import {AdminMenu} from "./menu/AdminMenu";
+import {UserMenu} from "./menu/UserMenu";
 
 const prompt = require("prompt-sync")({sigint: true});
 
 export class AccountController {
     private PATH = "./data/user.txt";
     private ioFile = new IOFile();
-    private userList = Array();
+    private userList;
 
     constructor() {
-        this.init();
-    }
-
-    private init(): void {
-        let regex: RegExp = /^[1-3]$/;
-        let menu: string = `
-        ------------------Account-------------
-        1. Login
-        2. Register
-        3. Exit
-        --------------------------------------
-        `
-        console.log(menu);
         let line = this.ioFile.readFile(this.PATH);
         this.userList = Array();
         line.forEach((item) => {
             let str = item.split(',');
             this.userList.push(new User(str[0], str[1], str[2] === 'true'));
         })
-        let n: number = 0;
-        while (n > 3 || n < 1) {
-            let str = prompt("Choose your function: ");
-            if (regex.test(str)) {
-                n = +(str);
-            } else {
-                n = 0;
-            }
-            if (n < 1 || n > 3) {
-                console.log("Please choose number between 1 and 3");
-            }
-        }
-        switch (n) {
-            case 1:
-                this.login();
-                break;
-            case 2:
-                this.register();
-                break;
-            case 3:
-                return;
-        }
     }
 
     private validate(password: string) {
@@ -60,7 +27,7 @@ export class AccountController {
 
     }
 
-    private login(): void {
+    public login(): void {
         let isLogin: boolean = false;
         console.log("------------------Login-------------");
         let username;
@@ -70,12 +37,15 @@ export class AccountController {
         password = prompt("Password: ");
         this.userList.forEach(item => {
             if (item.username == username && item.password == password) {
+                 Main.user = new User(username, password, item.admin);
                 if (item.admin == true) {
-                    let amdin = new AdminController();
-                    this.init();
+                    let admin = new AdminMenu();
+                    while(Main.user != null)
+                        admin.selectMenu();
                 } else {
-                    let user = new UserController();
-                    this.init();
+                    let user = new UserMenu();
+                    while(Main.user != null)
+                        user.selectMenu();
                 }
                 isLogin = true;
             }
@@ -86,7 +56,7 @@ export class AccountController {
         }
     }
 
-    private register(): void {
+    public register(): void {
         console.log("------------------Register-------------");
         let username;
         let password;
@@ -115,6 +85,6 @@ export class AccountController {
 
         this.userList.push(new User(username, password, false));
         this.ioFile.writeFile(this.PATH, this.userList);
-        this.init()
     }
+
 }
